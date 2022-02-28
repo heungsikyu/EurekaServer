@@ -1,1 +1,1 @@
-# EurekaServer
+# Eureka Server Service
