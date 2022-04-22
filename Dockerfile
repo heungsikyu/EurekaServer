@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-WORKDIR /xmd-eureka-server
+WORKDIR /app
 
 VOLUME /tmp 
 
@@ -17,7 +17,8 @@ RUN chmod 774 run.sh
 
 RUN ./mvnw install -DskipTests
 
-ENV PROFILE=local
+ENV PROFILE="local"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT="127.0.0.1"
 
 
 EXPOSE 8761
