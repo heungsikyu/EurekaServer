@@ -61,9 +61,9 @@ java -javaagent:/Users/{사용자ID}/xmd/opentelemetry_agent/opentelemetry-javaa
 
 - __컨테이너 안에서 실행할 shell 프로그램 생성 : entry.sh__
 
-  ```bash 
+```bash 
     #!/bin/sh
-    
+
     ACTIVE_PROFILE="${PROFILE:-dev}"
     ACTIVE_OTEL_EXPORTER_OTLP_ENDPOINT="${OTEL_EXPORTER_OTLP_ENDPOINT:-127.0.0.1}"
 
@@ -71,11 +71,12 @@ java -javaagent:/Users/{사용자ID}/xmd/opentelemetry_agent/opentelemetry-javaa
     echo "ACTIVE_OTEL_EXPORTER_OTLP_ENDPOINT=${ACTIVE_OTEL_EXPORTER_OTLP_ENDPOINT}"
 
     exec java -javaagent:./opentelemetry-javaagent.jar \
-          -Dotel.exporter.otlp.endpoint=http://${ACTIVE_OTEL_EXPORTER_OTLP_ENDPOINT}:4317 \
-          -Dotel.resource.attributes=service.name=xmd-Eureka-server \
-          -Dspring.profiles.active=${ACTIVE_PROFILE} \
-          -jar target/EurekaServer-0.0.1-SNAPSHOT.jar
-  ```
+            -Dotel.exporter.otlp.endpoint=http://${ACTIVE_OTEL_EXPORTER_OTLP_ENDPOINT}:4317 \
+            -Dotel.resource.attributes=service.name=xmd-Eureka-server \
+            -Dspring.profiles.active=${ACTIVE_PROFILE} \
+            -jar target/EurekaServer-0.0.1-SNAPSHOT.jar
+            
+```
 
 #### 2.2 docker 이미지 만들기  
 
@@ -85,8 +86,9 @@ docker build -t xmdeurekasvc:0.1 .
 
 
 #### 2.2 docker 이미지로 xmd-eureka-server 컨테이너 시작
+
 ```bash
-docker run --name xmd-eureka-server -p 8761:8761 -e "PROFILE=dev" -e "OTEL_EXPORTER_OTLP_ENDPOINT=192.168.219.103" xmdeurekasvc:0.1  
+docker run --name xmd-eureka-server -p 8761:8761 -e "PROFILE=dev" -e "OTEL_EXPORTER_OTLP_ENDPOINT=192.168.10.157" xmdeurekasvc:0.1  
 ```
 
 
